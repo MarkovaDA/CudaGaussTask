@@ -4,11 +4,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <omp.h>
+
 #include "Common.h"
 
-__global__ void Kernel(float *, float *, int); 
+__global__ void forwardPropagation(float *, float *, int); 
 
-void DeviceFunc(float *temp_h , int numvar , float *temp1_h) 
+void calculateTriangleMatrix(float *temp_h , int numvar , float *temp1_h) 
 { 
     float *a_d , *b_d; 
     
@@ -24,7 +26,7 @@ void DeviceFunc(float *temp_h , int numvar , float *temp1_h)
     dim3 dimGrid(1,1,1); 
     
     //Kernel call 
-    Kernel<<<dimGrid , dimBlock>>>(a_d, b_d, numvar); 
+    forwardPropagation<<<dimGrid , dimBlock>>>(a_d, b_d, numvar); 
     
     //Coping data to host from device 
     cudaMemcpy(temp1_h,b_d, sizeof(float)*numvar*(numvar+1), cudaMemcpyDeviceToHost);
@@ -32,7 +34,7 @@ void DeviceFunc(float *temp_h , int numvar , float *temp1_h)
     cudaFree(b_d);
 }
 
-__global__ void Kernel(float *a_d , float *b_d ,int size) 
+__global__ void forwardPropagation(float *a_d , float *b_d ,int size) 
 {
     int idx = threadIdx.x ; 
     int idy = threadIdx.y ; 
@@ -55,6 +57,30 @@ __global__ void Kernel(float *a_d , float *b_d ,int size)
     
     b_d[idy*(size+1) + idx] = temp[idy][idx]; 
 }
+//попробовать аналогичное написать на блоках
+
+__host__ void backPropagation(float **result, float *b_h, int numvar) {
+	float sum, rvalue; 
+	int j;
+	*result = (float*)malloc(sizeof(float)*(numvar)); 
+    
+	for(int i = 0; i < numvar;i++) 
+    { 
+        (*result)[i] = 1.0;
+    }
+	//обратный ход
+    for(int i=numvar-1 ; i>=0 ; i--) 
+    { 
+        sum = 0.0 ;
+		#pragma omp parallel for reduction(+:sum) private(j, numvar) shared(result, b_h)
+        for(j = numvar-1; j > i ;j--) 
+        { 
+            sum = sum + (*result)[j]*b_h[i*(numvar+1) + j]; 
+        }
+        rvalue = b_h[i*(numvar+1) + numvar] - sum ; 
+        (*result)[i] = rvalue / b_h[i *(numvar+1) + j];
+    } 
+}
 
 int main()
 {	
@@ -66,31 +92,29 @@ int main()
 	
 	numvar = readMatrix(&a_h);	
 	b_h = (float*)malloc(sizeof(float) * numvar * (numvar+1));
+	result = (float*)malloc(sizeof(float)*(numvar));
+
+	/***ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќјя ¬≈–—»я***/
+	/*sequenceForwardPropagation(&a_h, numvar);
+
+	sequenceBackPropagation(a_h, &result, numvar);
 	
-	DeviceFunc(a_h , numvar , b_h); 
-    
-    //printf("End \n"); 
-    
+	for(int i = 0; i < numvar; i++) 
+    { 
+        printf("[X%d] = %+f\n", i , result[i]); 
+    }*/
+
+	/***ѕј–јЋЋ≈Ћ№Ќјя ¬≈–—»я***/
+	calculateTriangleMatrix(a_h , numvar , b_h); 
+        
 	result = (float*)malloc(sizeof(float)*(numvar)); 
-    for(int i = 0; i< numvar;i++) 
+    for(int i = 0; i < numvar;i++) 
     { 
         result[i] = 1.0;
     }
-
-    for(int i=numvar-1 ; i>=0 ; i--) 
-    { 
-        sum = 0.0 ;
-
-        for(j=numvar-1; j > i ;j--) 
-        { 
-            sum = sum + result[j]*b_h[i*(numvar+1) + j]; 
-        }
-        rvalue = b_h[i*(numvar+1) + numvar] - sum ; 
-        result[i] = rvalue / b_h[i *(numvar+1) + j];
-    } 
-    
-    //Displaying the result 
-    for(int i =0; i < numvar;i++) 
+    backPropagation(&result, b_h, numvar);
+	#pragma omp parallel for
+    for(int i = 0; i < numvar; i++) 
     { 
         printf("[X%d] = %+f\n", i ,result[i]); 
     }

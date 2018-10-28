@@ -2,4 +2,6 @@
 #define __Common_H 
 #endif
 
-int readMatrix(float **matrix);
+int readMatrix(float **);
+void sequenceForwardPropagation(float **, int);
+void sequenceBackPropagation(float *, float ** , int);

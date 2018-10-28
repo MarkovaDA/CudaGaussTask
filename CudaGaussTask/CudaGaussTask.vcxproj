@@ -47,6 +47,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -82,13 +83,15 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fread.cpp" />
+    <ClCompile Include="sequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data.txt" />
-    <None Include="data1.txt" />
+    <None Include="data4.txt" />
+    <None Include="data10.txt" />
+    <None Include="data2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
