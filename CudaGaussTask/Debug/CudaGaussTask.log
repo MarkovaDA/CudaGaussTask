@@ -1,24 +1,16 @@
 ﻿  Compiling CUDA source file kernel.cu...
   
   C:\Users\Darya\documents\visual studio 2010\Projects\CudaGaussTask\CudaGaussTask>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.0\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" --use-local-env --cl-version 2010 -ccbin "F:\Visual Studio 2010\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.0\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.0\include"  -G   --keep-dir "Debug" -maxrregcount=0  --machine 32 --compile  -g   -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MDd  " -o "Debug\kernel.cu.obj" "C:\Users\Darya\documents\visual studio 2010\Projects\CudaGaussTask\CudaGaussTask\kernel.cu" 
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning : variable "sum" was declared but never referenced
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning : variable "rvalue" was declared but never referenced
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(91): warning : variable "j" was declared but never referenced
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning : variable "sum" was declared but never referenced
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning : variable "rvalue" was declared but never referenced
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(91): warning : variable "j" was declared but never referenced
-  tmpxft_000011ec_00000000-12_kernel.ii
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning C4101: rvalue: неиспользованная локальная переменная
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(90): warning C4101: sum: неиспользованная локальная переменная
-C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(91): warning C4101: j: неиспользованная локальная переменная
-  fread.cpp
-c:\users\darya\documents\visual studio 2010\projects\cudagausstask\cudagausstask\fread.cpp(8): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-          f:\visual studio 2010\vc\include\stdio.h(234): см. объявление "fopen"
-c:\users\darya\documents\visual studio 2010\projects\cudagausstask\cudagausstask\fread.cpp(13): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-          f:\visual studio 2010\vc\include\stdio.h(253): см. объявление "fscanf"
-c:\users\darya\documents\visual studio 2010\projects\cudagausstask\cudagausstask\fread.cpp(22): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-          f:\visual studio 2010\vc\include\stdio.h(253): см. объявление "fscanf"
-c:\users\darya\documents\visual studio 2010\projects\cudagausstask\cudagausstask\fread.cpp(10): warning C4101: i: неиспользованная локальная переменная
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning : variable "sum" was declared but never referenced
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning : variable "rvalue" was declared but never referenced
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(86): warning : variable "j" was declared but never referenced
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning : variable "sum" was declared but never referenced
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning : variable "rvalue" was declared but never referenced
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(86): warning : variable "j" was declared but never referenced
+  tmpxft_00001fac_00000000-12_kernel.ii
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning C4101: rvalue: неиспользованная локальная переменная
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(85): warning C4101: sum: неиспользованная локальная переменная
+C:/Users/Darya/documents/visual studio 2010/Projects/CudaGaussTask/CudaGaussTask/kernel.cu(86): warning C4101: j: неиспользованная локальная переменная
 fread.obj : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/INCREMENTAL:NO"
   CudaGaussTask.vcxproj -> C:\Users\Darya\documents\visual studio 2010\Projects\CudaGaussTask\Debug\CudaGaussTask.exe
   copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.0\bin\cudart*.dll" "C:\Users\Darya\documents\visual studio 2010\Projects\CudaGaussTask\Debug\"
